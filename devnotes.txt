@@ -1,0 +1,7 @@
+package requirements
+cfg2html-linux-2.70-1.noarch.rpm
+
+packages through yum
+php lldpad dmidecode redhat-lsb
+
+
