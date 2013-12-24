@@ -20,4 +20,10 @@ progname = 'RTUpdater-collector';             // Default
 notificationEmail = 'rebecca.x.robinson@ericsson.com';
 logFile = "$progname.log";                    // Default rtupdater-agent.log
 logFilePath = '/var/log/';                    // Default /var/log/
+
+[importer]
+progname = 'RTUpdater-importer';             // Default 
+notificationEmail = 'rebecca.x.robinson@ericsson.com';
+logFile = "$progname.log";                    // Default rtupdater-agent.log
+logFilePath = '/var/log/';                    // Default /var/log/
 export_items = '';                            // Items to be exported to server after collection

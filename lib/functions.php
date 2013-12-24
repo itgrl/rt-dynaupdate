@@ -5,35 +5,87 @@
         if (!file_exists($ROOT_DIR . '/inc/config')
         {
             // Validate configuration file is present.  If not log error.
-            error_log("RTUpdater-agent config File missing.\n", 3, "/var/log/messages");
-            error_log("RTUpdater-agent config File missing.\n", 3, "/var/log/rtupdater.log");
-            return die("RTUpdater-agent config File missing.\n")
+            error_log("RTUpdater config File missing.\n", 3, "/var/log/messages");
+            error_log("RTUpdater config File missing.\n", 3, "/var/log/rtupdater.log");
+            return die("RTUpdater config File missing.\n")
         }
         else
         {
             //Set default configuration parameters if they are not already set.
             $p_ini = parse_ini_file($ROOT_DIR . '/inc/config', true);
-            select ($install_type)
+
+            foreach ($p_ini as $section => $section_values)
             {
-                case agent:
-                    foreach ($p_ini as $sections)
-                    {
-                        if (is_array($sections))
+                select ($install_type)
+                {
+                    case agent:
+                        if ($section == 'agent')
                         {
-                            foreach ($sections as $item => $value)
+                            if (is_array($section))
                             {
-                                echo "Setting item $item to value $value";
-                                $item = $value;
+                                foreach ($section_values as $item => $value)
+                                {
+                                    echo "Setting item $item to value $value";
+                                    $item = $value;
+                                }
+                            }
+                            else
+                            {
+                                logme('Agent function not configured, using defaults.');
                             }
                         }
-                    }
-                    break
-                case collector:
-                    break;
-                case importer:
-                    break;
+                        break;
+                    case collector:
+                        if ($section == 'collector')
+                        {
+                            if (is_array($section))
+                            {
+                                foreach ($section_values as $item => $value)
+                                {
+                                    echo "Setting item $item to value $value";
+                                    $item = $value;
+                                }
+                            }
+                            else
+                            {
+                                logme('Collector function not configured, using defaults.');
+                            }
+                        }
+                        break;
+                    case importer:
+                        if ($section == 'importer')
+                        {
+                            if (is_array($section))
+                            {
+                                foreach ($section_values as $item => $value)
+                                {
+                                    echo "Setting item $item to value $value";
+                                    $item = $value;
+                                }
+                            }
+                            else
+                            {
+                                logme('Importer function not configured, using defaults.');
+                            }
+                        }
+                        elseif ($section == 'database')
+                        {
+                            if (is_array($section))
+                            {
+                                foreach ($section_values as $item => $value)
+                                {
+                                    echo "Setting item $item to value $value";
+                                    $item = $value;
+                                }
+                            }
+                            else
+                            {
+                                logme('Database not configured, using defaults.');
+                            }
+                        }
+                        break;
+                }
             }
-
             
         }
     }
